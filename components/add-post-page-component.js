@@ -4,11 +4,9 @@ import {renderUploadImageComponent} from "./upload-image-component.js";
 
 
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
-  let imageUrl = "";
-  
     const render = () => {
-      // TODO: Реализовать страницу добавления поста
-      
+      // Реализовать страницу добавления поста
+      let imageUrl="";
       const appHtml = `
       <div class="page-container">
         <div class="header-container"></div>
@@ -25,20 +23,25 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
               <button class="button" id="add-button">Добавить</button>
           </div>
       </div>
+      
+      
+      
+
+
      `;
     
 
       appEl.innerHTML = appHtml;    
     
       renderHeaderComponent({
-        element: appEl.querySelector(".header-container"),
+        element: document.querySelector(".header-container"),
       });
 
       renderUploadImageComponent({
-        element: appEl.querySelector(".upload-image-container"),
-          onImageUrlChange(newImageUrl) {
-            imageUrl = newImageUrl;
-          },
+        onImageUrlChange(newImageUrl) {
+          imageUrl = newImageUrl;
+        },
+        element: document.querySelector(".upload-image-container"),
       });
 
       document.getElementById("add-button").addEventListener("click", () => {

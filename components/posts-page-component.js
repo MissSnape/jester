@@ -1,5 +1,4 @@
 import { USER_POSTS_PAGE } from "../routes.js";
-import { POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, getToken } from "../index.js";
 import { likePost } from "../api.js";
@@ -75,21 +74,12 @@ export function renderPostsPageComponent({ appEl, page }) {
                     ${key.description}
                   </p>
                   <p class="post-date">
-                  ${parseData(key.createdAt)} 
+                  ${data()} 
                   </p>
                 </li>`;
 
     
   }
-
-  function parseData(dateStr) {
-    const result = dateStr.split('T');
-    const date = result[0];
-    const hours =  result[1].split(':');
-    const formattedData = hours[0] + ':' + hours[1];
-    return date + ' ' +  formattedData;
-  }
-  
 
   function likeText(key){
     
