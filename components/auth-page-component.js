@@ -14,8 +14,8 @@ export function renderAuthPageComponent({ appEl, setUser }) {
               <h3 class="form-title">
                 ${
                   isLoginMode
-                    ? "Вход в&nbsp;Instapro"
-                    : "Регистрация в&nbsp;Instapro"
+                    ? "Вход в&nbsp;Jester"
+                    : "Регистрация в&nbsp;Jester"
                 }
                 </h3>
               <div class="form-inputs">
