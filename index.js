@@ -1,4 +1,4 @@
-import { getPosts, addPost, getUserPosts} from "./api.js";
+import { getPosts, addPost} from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import {
@@ -67,48 +67,20 @@ export const goToPage = (newPage, data) => {
     }
 
     if (newPage === USER_POSTS_PAGE) {
-      page = LOADING_PAGE;
-      renderApp();
-      
+      // реализовать получение постов юзера из API
       console.log("Открываю страницу пользователя: ", data.userId);
-      return getUserPosts({token:getToken(),
-                    id:data.userId})
-      .then((newPosts) => {
-        posts =newPosts;
-        console.log(posts);
-        page = USER_POSTS_PAGE;
-        renderApp();
-
-      }
-        )
+      page = USER_POSTS_PAGE;
+      posts = [];
+      return renderApp();
     }
 
     page = newPage;
-    flag = false;
     renderApp();
 
     return;
   }
 
   throw new Error("страницы не существует");
-};
-
-export const toggleUserLike = ({ postId }) => {
-  const index = posts.findIndex((post) => post.id === postId);
-
-  if (posts[index].isLiked) {
-    dislike({ token: getToken(), id: postId }).then((updatedPost) => {
-      posts[index].likes = updatedPost.post.likes;
-      posts[index].isLiked = false;
-      renderApp();
-    });
-  } else {
-    like({ token: getToken(), id: postId }).then((updatedPost) => {
-      posts[index].likes = updatedPost.post.likes;
-      posts[index].isLiked = true;
-      renderApp();
-    });
-  }
 };
 
 const renderApp = () => {
@@ -138,7 +110,7 @@ const renderApp = () => {
     return renderAddPostPageComponent({
       appEl,
       onAddPostClick({ description, imageUrl }) {
-        // TODO: реализовать добавление поста в API
+        //  реализовать добавление поста в API
         addPost({ description, imageUrl, token: getToken() })
         .then(()=>{
           goToPage(POSTS_PAGE);
@@ -158,14 +130,16 @@ const renderApp = () => {
   }
 
   if (page === USER_POSTS_PAGE) {
+    // реализовать страницу фотографию пользвателя
+    //appEl.innerHTML = "Здесь будет страница фотографий пользователя"; если буду переводить на реакт не использовать
     return renderPostsPageComponent({
       appEl,
       user,
       goToPage,
       posts,
-      page: true,
-      toggleLike: toggleUserLike
-    })
+      page:true,
+      toggleLike: toggleLikeUser,
+    });
   }
 };
 
